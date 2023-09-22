@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator Matematika</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; /* Mengatur konten di tengah vertikal dan horizontal */
+        min-height: 100vh;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      .form-container {
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        width: 80%; /* Lebar berdasarkan persentase */
+        max-width: 600px; /* Lebar maksimum */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .form-container select,
+      .form-container input[type="number"] {
+        margin: 10px 0;
+        padding: 10px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      button.reset {
+        background-color: #ccc;
+        color: #333;
+        margin-left: 10px;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      p {
+        margin-top: 10px;
+        font-size: 18px;
+        color: #333;
+      }
+
+      /* Menambahkan gaya untuk informasi nama dan NIM */
+      .info {
+        text-align: left;
+        margin-left: 20px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Informasi Nama dan NIM -->
+    <div class="info">
+      <p>Nama: Yeremia Ginting</p>
+      <p>NIM: 2215101059</p>
+    </div>
+
+    <h1>Kalkulator Matematika</h1>
+
+    <!-- Bagian 1: Deret Fibonacci -->
+    <div class="form-container" id="fibonacci-form">
+      <h2>Deret Fibonacci</h2>
+      <label for="fibonacci-n">Masukkan nilai n:</label>
+      <input type="number" id="fibonacci-n" />
+      <button onclick="hitungFibonacci()">Hitung</button>
+      <button class="reset" onclick="resetFibonacci()">Reset</button>
+      <p>Hasil: <span id="fibonacci-result"></span></p>
+    </div>
+
+    <!-- Bagian 2: Perhitungan Volume Bangun Ruang -->
+    <div class="form-container" id="volume-form">
+      <h2>Perhitungan Volume Bangun Ruang</h2>
+      <label for="volume-shape">Pilih bentuk:</label>
+      <select id="volume-shape">
+        <option value="kubus">Kubus (cm)</option>
+        <option value="balok">Balok (cm)</option>
+        <option value="tabung">Tabung (cm)</option>
+      </select>
+      <br />
+      <label for="volume-panjang">Panjang (cm):</label>
+      <input type="number" id="volume-panjang" />
+      <br />
+      <label for="volume-lebar">Lebar (cm):</label>
+      <input type="number" id="volume-lebar" />
+      <br />
+      <label for="volume-tinggi">Tinggi (cm):</label>
+      <input type="number" id="volume-tinggi" />
+      <br />
+      <label for="volume-jari-jari">Jari-Jari (cm):</label>
+      <input type="number" id="volume-jari-jari" />
+      <br />
+      <button onclick="hitungVolume()">Hitung</button>
+      <button class="reset" onclick="resetVolume()">Reset</button>
+      <p>Hasil: <span id="volume-result"></span> cm<sup>3</sup></p>
+    </div>
+
+    <script>
+      let fibonacciResult = document.getElementById("fibonacci-result");
+      let volumeResult = document.getElementById("volume-result");
+
+      function hitungFibonacci() {
+        const n = parseInt(document.getElementById("fibonacci-n").value);
+        let a = 0,
+          b = 1;
+        let result = "";
+
+        for (let i = 0; i < n; i++) {
+          result += a + " ";
+          const temp = a + b;
+          a = b;
+          b = temp;
+        }
+
+        fibonacciResult.textContent = result;
+      }
+
+      function resetFibonacci() {
+        document.getElementById("fibonacci-n").value = "";
+        fibonacciResult.textContent = "";
+      }
+
+      function resetVolume() {
+        document.getElementById("volume-shape").value = "kubus";
+        document.getElementById("volume-panjang").value = "";
+        document.getElementById("volume-lebar").value = "";
+        document.getElementById("volume-tinggi").value = "";
+        document.getElementById("volume-jari-jari").value = "";
+        volumeResult.textContent = "";
+      }
+
+      function hitungVolume() {
+        const shape = document.getElementById("volume-shape").value;
+        const panjang = parseFloat(
+          document.getElementById("volume-panjang").value
+        );
+        const lebar = parseFloat(document.getElementById("volume-lebar").value);
+        const tinggi = parseFloat(
+          document.getElementById("volume-tinggi").value
+        );
+        const jariJari = parseFloat(
+          document.getElementById("volume-jari-jari").value
+        );
+        let result = 0;
+
+        if (shape === "kubus") {
+          result = panjang * panjang * panjang;
+        } else if (shape === "balok") {
+          result = panjang * lebar * tinggi;
+        } else if (shape === "tabung") {
+          result = Math.PI * jariJari * jariJari * tinggi;
+        }
+
+        volumeResult.textContent = result;
+      }
+    </script>
+  </body>
+</html>
